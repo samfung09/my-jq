@@ -71,7 +71,7 @@
 ### fadeOut()
 > 元素逐渐隐藏
 ### scrollTop(number)
-> 元素scrollTop属性
+> 元素scrollTop属性，number为数值类型，当number有值时设置元素scrollTop值，当number为空时返回元素scrollTop值
 
 
 ### click(fn)
