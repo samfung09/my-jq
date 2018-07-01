@@ -1,4 +1,4 @@
-﻿(function(window){
+﻿;(function(window){
     /**
      * 缓冲运动
      * @param {HTMLElement} el 元素
@@ -16,7 +16,7 @@
             speed = (target-start)>0 ? Math.ceil(speed) : Math.floor(speed);//速度为小数时带来的问题
             // console.log(speed);
             el.style[dir] = start + speed + 'px';
-        }, 17)
+        }, 17);
     }
     /**
      * 获取样式
@@ -63,7 +63,7 @@
         var iframe = document.createElement('iframe');//相当于html作用域
         document.body.appendChild(iframe);//将iframe追加进body中
         var iframeDoc = ( iframe.contentWindow || iframe.contentDocument ).document;//iframe文档元素
-        var node = iframeDoc.createElement(el.nodeName)//创建要判断的节点
+        var node = iframeDoc.createElement(el.nodeName);//创建要判断的节点
         iframeDoc.body.appendChild(node);//将节点追加到iframe中
         var display = getStyle(node, 'display');//判断节点属性
         document.body.removeChild(iframe);//移除iframe
@@ -86,7 +86,7 @@
             }
             opc += speed;
             el.style.opacity = opc/10;
-        }, 34)       
+        }, 34);       
     }
     //数组交集函数
     function intersection(arr1, arr2){
@@ -441,12 +441,24 @@
         for(var i=0; i<this.els.length; i++){            
             (function(i){
                 opacity(that.els[i], 0, function(){//注意回调函数是异步以及自执行函数this指向window
-                    console.log(i)
+                    // console.log(i)
                     $(that.els[i]).hide();
-                })
+                });
             })(i);
         }
         return this;
+    }
+    //清空元素
+    JQ.prototype.empty = function(){
+        for(var i=0; i<this.els.length; i++){
+            this.els[i].innerHTML = '';
+        }
+    }
+    //移除元素
+    JQ.prototype.remove = function(){
+        for(var i=0; i<this.els.length; i++){
+            this.els[i].parentNode.removeChild(this.els[i]);
+        }
     }
     //scrollTop
     JQ.prototype.scrollTop = function(number){
