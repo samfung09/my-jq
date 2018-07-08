@@ -112,12 +112,12 @@
             xhr.open('get', url+'?'+getFormat(data), true);
             xhr.send();
         }else if (method === 'post'){
-            if(typeof data == 'string' || data instanceof FormData){
-                data = data;
-            }else{
-                data = JSON.stringify(data);
-            }
             xhr.open('post', url, true);
+            //如果data是json对象，则设置application/json对象
+            if(Object.prototype.toString.call(data) == '[object Object]'){
+                data = JSON.stringify(data);
+                xhr.setRequestHeader('content-type', 'application/json');
+            }
             xhr.send(data);
         }
         xhr.onload = function () {
