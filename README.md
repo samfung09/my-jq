@@ -1,7 +1,7 @@
 ## 本js库不兼容IE8及以下版本
-#### 本库是本人封装的js操作dom库，体积小，压缩后仅有8点几k，一些jQuery中常用的方法都有，但如果项目要求较高或者使用第三方库本就依赖jQuery的请自行使用jQuery。
+#### 本库是本人封装的js操作dom库，体积小，压缩后仅有9点几k，一些jQuery中常用的方法都有，但如果项目要求较高或者使用第三方库本就依赖jQuery的请自行使用jQuery。
 ### $(arg)
-> arg可为css选择器，可为HTMLElement，可为HTMLDocument，可为window，函数返回一个JQ对象，该JQ对象.els[0]可转换成dom对象
+> arg可为css选择器，可为HTMLElement，可为HTMLDocument，可为window，函数返回一个JQ对象，该JQ对象.els[0]可转换成dom对象。如果arg是一个函数，那就是代码的入口函数，相当于window.onload
 ### $.ajax(options)
 > opntions为ajax中一些常见的选项，包含url，method，data，success请求成功回调函数，暂时只支持get，post请求。
 ### index()
@@ -104,5 +104,5 @@
 > 表单输入事件
 ### scroll(fn)
 > 滚动事件
-### on(event, fn, useCapture)
-> 动态绑定事件，event事件名，fn执行函数，useCapture是否捕获布尔值
+### on(event, selector, fn)
+> 动态绑定事件，event事件名，selector选择器（可选），fn执行函数，如果有selector则为事件代理
