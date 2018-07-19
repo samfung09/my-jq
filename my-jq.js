@@ -551,16 +551,38 @@
         }
     }
     //动态绑定事件
-    JQ.prototype.on = function(event, fn, useCapture){
-        useCapture = typeof useCapture == "boolean" ? useCapture : false;//是否捕获
-        for(var i=0; i<this.els.length; i++){
-            this.els[i].addEventListener(event, fn, useCapture);
+    JQ.prototype.on = function(eventType, selector, fn){
+        // useCapture = useCapture || false;       //是否捕获
+        if(fn === undefined){       //如果只传两个参数，即为自身绑定事件
+            fn = selector;
+            selector = null;
+            for(var i=0; i<this.els.length; i++){                
+                this.els[i].addEventListener(eventType, fn, false);
+            }
+        }else{      //如果传入三个参数，即为事件委托，selector为事件目标
+            for(var i=0; i<this.els.length; i++){                
+                this.els[i].addEventListener(eventType, function(e){
+                    if(e.target.matches(selector)){     //如果当前时间目标与selector匹配
+                        fn.call(e.target, e);
+                    }
+                }, false);
+            }
         }
+
+        
     }
 
 
     function $(arg){
-        return new JQ(arg);
+        if(typeof arg == 'function'){       //如果arg参数是个函数，那就相当于window.onload
+            if(document.addEventListener){      //如果是ie9以上浏览器
+                document.addEventListener('DOMContentLoaded', arg, false);
+            }else{
+                window.onload = arg;
+            }
+        }else{
+            return new JQ(arg);
+        }
     }
     $.ajax = ajax;
     window.$ = $;
